@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const User = require("../models/User");
 
 //Signup
@@ -32,6 +31,7 @@ router.post("/login", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const users = await User.find({ isAdmin: false }).populate("orders");
+    res.json(users);
   } catch (e) {
     res.status(400).send(e.message);
   }
