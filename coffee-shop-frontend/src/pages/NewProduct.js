@@ -11,6 +11,7 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import "./NewProduct.css";
 import { useCreateProductMutation } from "../services/appApi";
+import axios from "axios";
 
 function NewProduct() {
   const [name, setName] = useState("");
@@ -23,14 +24,45 @@ function NewProduct() {
   const [createProduct, { isError, error, isLoading, isSuccess }] =
     useCreateProductMutation();
 
+  //Remove Image
+  function handleRemoveImg(imgObj) {
+    handleRemoveImg(imgObj.public_id);
+    axios
+      .delete(`/images/${imgObj.public_id}`)
+      .then((res) => {
+        setImgToRemove(null);
+        setImages((prev) =>
+          prev.filter((img) => img.public_id !== imgObj.public_id)
+        );
+      })
+      .catch((error) => console.log(error));
+  }
+
+  //Submit Product
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!name || !description || !price || !category || !images.length) {
+      return window.alert("Please fill into the input field");
+    }
+    createProduct({ name, description, price, category, images }).then(
+      (data) => {
+        if (data.length > 0) {
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+        }
+      }
+    );
+  }
+
   function showWidget() {
     const widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: "",
-        uploadReset: "",
+        cloudName: "ecommerce-coffee-shop",
+        uploadPreset: "coffeeshop",
       },
       (error, result) => {
-        if (!error && result.event === "success") {
+        if (!error && result && result.event === "success") {
           setImages((prev) => [
             ...prev,
             { url: result.info.url, public_id: result.info.public_id },
@@ -45,7 +77,7 @@ function NewProduct() {
     <Container>
       <Row>
         <Col md={6} className="new-product__form--container">
-          <Form style={{ width: "100%" }}>
+          <Form style={{ width: "100%" }} onSubmit={handleSubmit}>
             <h1>Create a product</h1>
             {isSuccess && (
               <Alert variant="success">Product created with success</Alert>
@@ -109,6 +141,10 @@ function NewProduct() {
                 {images.map((image) => (
                   <div className="image-preview">
                     <img src={image.url} />
+                    <i
+                      className="fa fa-times-circle"
+                      onClick={() => handleRemoveImg(image)}
+                    ></i>
                     {/* add icon for removing*/}
                   </div>
                 ))}
