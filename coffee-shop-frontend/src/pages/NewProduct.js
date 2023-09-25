@@ -11,7 +11,7 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import "./NewProduct.css";
 import { useCreateProductMutation } from "../services/appApi";
-import axios from "axios";
+import axios from "../axios";
 
 function NewProduct() {
   const [name, setName] = useState("");
@@ -26,16 +26,16 @@ function NewProduct() {
 
   //Remove Image
   function handleRemoveImg(imgObj) {
-    handleRemoveImg(imgObj.public_id);
+    setImgToRemove(imgObj.public_id);
     axios
-      .delete(`/images/${imgObj.public_id}`)
+      .delete(`/images/${imgObj.public_id}/`)
       .then((res) => {
         setImgToRemove(null);
         setImages((prev) =>
           prev.filter((img) => img.public_id !== imgObj.public_id)
         );
       })
-      .catch((error) => console.log(error));
+      .catch((e) => console.log(e));
   }
 
   //Submit Product
@@ -140,11 +140,13 @@ function NewProduct() {
               <div className="images-preview-container">
                 {images.map((image) => (
                   <div className="image-preview">
-                    <img src={image.url} />
-                    <i
-                      className="fa fa-times-circle"
-                      onClick={() => handleRemoveImg(image)}
-                    ></i>
+                    <img src={image.url} alt={image.url} />
+                    {imgToRemove != image.public_id && (
+                      <i
+                        className="fa fa-times-circle"
+                        onClick={() => handleRemoveImg(image)}
+                      ></i>
+                    )}
                     {/* add icon for removing*/}
                   </div>
                 ))}
