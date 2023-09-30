@@ -76,7 +76,22 @@ router.get("/:id", async (req, res) => {
     const similar = await Product.find({ category: product.category }).limit(5);
     res.status(200).json({ product, similar });
   } catch (e) {
-    res.status(400).json(e.message);
+    res.status(400).send(e.message);
+  }
+});
+
+router.get("/category/:category", async (req, res) => {
+  const { category } = req.params;
+  try {
+    let products;
+    if (category == "all") {
+      products = await Product.find().sort([["date", -1]]);
+    } else {
+      products = await Product.find({ category });
+    }
+    res.status(200).json(products);
+  } catch (e) {
+    res.status(400).send(e.message);
   }
 });
 
