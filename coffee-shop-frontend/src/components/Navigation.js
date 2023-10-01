@@ -4,6 +4,7 @@ import { Navbar, Container, NavDropdown, Button, Nav } from "react-bootstrap";
 import "./Navigation.css";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import CartPage from "../pages/CartPage";
 
 function Navigation() {
   const user = useSelector((state) => state.user);
@@ -28,6 +29,19 @@ function Navigation() {
                 <Nav.Link>Login</Nav.Link>
               </LinkContainer>
             )}
+            {user && !user.isAdmin && (
+              <LinkContainer to="/cart">
+                <Nav.Link>
+                  <i className="fas fa-shopping-cart"></i>
+                  {user?.cart.count > 0 && (
+                    <span className="badge badge-warning" id="cartcount">
+                      {user.cart.count}
+                    </span>
+                  )}
+                </Nav.Link>
+              </LinkContainer>
+            )}
+
             {/* Has User */}
             {user && (
               <NavDropdown title={`${user.email}`} id="basic-nav-dropdown">

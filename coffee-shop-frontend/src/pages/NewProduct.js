@@ -128,8 +128,8 @@ function NewProduct() {
                   ---- Select One ----
                 </option>
                 <option value="ca phe rang xay">Ca Phe Rang Xay</option>
-                <option value="ca phe phin">Ca Phe Phin</option>
-                <option value="ca phe goi">Ca Phe Goi</option>
+                <option value="ca phe phin giay">Ca Phe Phin Giay</option>
+                <option value="ca phe hoa tan">Ca Phe Hoa Tan</option>
               </FormSelect>
             </Form.Group>
 

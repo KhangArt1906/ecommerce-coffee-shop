@@ -30,10 +30,53 @@ export const appApi = createApi({
         method: "post",
       }),
     }),
+
+    //add to cart
+    addToCart: builder.mutation({
+      query: (cartInfo) => ({
+        url: "/products/add-to-cart",
+        body: cartInfo,
+        method: "post",
+      }),
+    }),
+
+    //delete cart
+    removeFromCart: builder.mutation({
+      query: (body) => ({
+        url: "/products/remove-from-cart",
+        body,
+        method: "delete",
+      }),
+    }),
+
+    //increase the number in cart
+    increaseCartProduct: builder.mutation({
+      query: (body) => ({
+        url: "/products/increase-cart",
+        body,
+        method: "post",
+      }),
+    }),
+
+    //decrease cart
+    decreaseCartProduct: builder.mutation({
+      query: (body) => ({
+        url: "/products/decrease-cart",
+        body,
+        method: "post",
+      }),
+    }),
   }),
 });
 
-export const { useSignupMutation, useLoginMutation, useCreateProductMutation } =
-  appApi;
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  useCreateProductMutation,
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
+  useIncreaseCartProductMutation,
+  useDecreaseCartProductMutation,
+} = appApi;
 
 export default appApi;
