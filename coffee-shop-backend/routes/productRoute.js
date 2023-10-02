@@ -161,7 +161,7 @@ router.post("/remove-from-cart", async (req, res) => {
   try {
     const user = await User.findById(userId);
     const userCart = user.cart;
-    userCart.total -= Number(userCart(productId) * Number(price));
+    userCart.total -= Number(userCart[productId]) * Number(price);
     userCart.count -= userCart[productId];
     delete userCart[productId];
 

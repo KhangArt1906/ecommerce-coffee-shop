@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Toast, ToastContainer } from "react-bootstrap";
+import "./ToastMessage.css";
 
 function ToastMessage({ bg, title, body }) {
   const [show, setShow] = useState(true);
