@@ -16,12 +16,15 @@ import Loading from "../components/Loading";
 import SimilarProduct from "../components/SimilarProduct";
 import "./ProductPage.css";
 import { LinkContainer } from "react-router-bootstrap";
+import { useAddToCartMutation } from "../services/appApi";
+import ToastMessage from "../components/ToastMessage";
 
 function ProductPage() {
   const { id } = useParams();
   const user = useSelector((state) => state.user);
   const [product, setProduct] = useState(null);
   const [similar, setSimilar] = useState(null);
+  const [addtoCart, { isSuccess }] = useAddToCartMutation();
 
   const handleDragStart = (event) => {
     event.preventDefault();
@@ -91,7 +94,19 @@ function ProductPage() {
                 <option value="4">4</option>
                 <option value="5">5</option>
               </FormSelect>
-              <Button size="lg">Add to cart</Button>
+              <Button
+                size="lg"
+                onClick={() =>
+                  addtoCart({
+                    userId: user._id,
+                    productId: id,
+                    price: product.price,
+                    images: product.pictures[0].url,
+                  })
+                }
+              >
+                Add to cart
+              </Button>
             </ButtonGroup>
           )}
 
@@ -99,6 +114,14 @@ function ProductPage() {
             <LinkContainer to={`/product/${product._id}/edit`}>
               <Button>Edit Product</Button>
             </LinkContainer>
+          )}
+          {isSuccess && (
+            <ToastMessage
+              item={product.name}
+              bg="info"
+              title="Added to cart"
+              body={`${product.name} is in your cart`}
+            />
           )}
         </Col>
       </Row>
