@@ -108,10 +108,10 @@ function NewProduct() {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Price(Đồng)</Form.Label>
+              <Form.Label>Price(USD)</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Price (Đồng)"
+                placeholder="Price (USD)"
                 value={price}
                 required
                 onChange={(e) => setPrice(e.target.value)}
@@ -129,7 +129,7 @@ function NewProduct() {
                 </option>
                 <option value="ca phe rang xay">Ca Phe Rang Xay</option>
                 <option value="ca phe phin giay">Ca Phe Phin Giay</option>
-                <option value="ca phe hoa tan">Ca Phe Hoa Tan</option>
+                <option value="ca phe hat">Ca Phe Hat</option>
               </FormSelect>
             </Form.Group>
 

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import "./CartPage.css";
 import { useSelector } from "react-redux";
 import {
@@ -7,6 +9,11 @@ import {
   useRemoveFromCartMutation,
 } from "../services/appApi";
 import { Alert, Col, Container, Row, Table } from "react-bootstrap";
+import CheckoutForm from "../components/CheckoutForm";
+
+const stripePromise = loadStripe(
+  "pk_test_51NxURvCoRh8CAlGYeClV96zz4yqy1VgjVf2hYlwCvmfNnnVb1pnydYK26N2EXthHCEuIqn3dFyVNp5vFz7mPKGm00010ftyWoI"
+);
 
 function CartPage() {
   const user = useSelector((state) => state.user);
@@ -38,7 +45,9 @@ function CartPage() {
               Shopping cart is empty. Add products to your cart
             </Alert>
           ) : (
-            <div>Payment</div>
+            <Elements stripe={stripePromise}>
+              <CheckoutForm />
+            </Elements>
           )}
         </Col>
 
@@ -90,7 +99,7 @@ function CartPage() {
                             }}
                           />
                         </td>
-                        <td>{item.price} Đồng</td>
+                        <td>${item.price}</td>
                         <td>
                           <span className="quantity-indicator">
                             <i
@@ -117,14 +126,14 @@ function CartPage() {
                           </span>
                         </td>
 
-                        <td>{item.price * user.cart[item._id]}.000 Đồng</td>
+                        <td>${item.price * user.cart[item._id]}</td>
                       </tr>
                     ))
                   }
                 </tbody>
               </Table>
               <div>
-                <h3 className="h4 pt-4">Total: {user.cart.total},000 Đồng</h3>
+                <h3 className="h4 pt-4">Total: ${user.cart.total}</h3>
               </div>
             </>
           )}

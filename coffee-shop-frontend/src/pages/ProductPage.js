@@ -79,7 +79,7 @@ function ProductPage() {
           <p>
             <Badge bg="primary">{product.category}</Badge>
           </p>
-          <p className="product_price">{product.price} Đồng</p>
+          <p className="product_price">{product.price}</p>
 
           <p style={{ textAlign: "justify" }} className="py-3">
             <strong>Description: </strong> {product.description}
