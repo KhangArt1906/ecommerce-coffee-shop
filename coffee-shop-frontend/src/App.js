@@ -13,6 +13,8 @@ import CategoryPage from "./pages/CategoryPage";
 import ScrollToTop from "./components/ScrollToTop";
 import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
+import EditProductPage from "./pages/EditProductPage";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -31,14 +33,23 @@ function App() {
             </>
           )}
 
-          <Route path="/product/:id" element={<ProductPage />} />
-
           {user && (
             <>
               <Route path="/cart" element={<CartPage />}></Route>
               <Route path="/orders" element={<OrdersPage />}></Route>
             </>
           )}
+
+          {user && user.isAdmin && (
+            <>
+              <Route path="/admin" element={<AdminDashboard />}></Route>
+              <Route
+                path="/product/:id/edit"
+                element={<EditProductPage />}
+              ></Route>
+            </>
+          )}
+          <Route path="/product/:id" element={<ProductPage />} />
 
           <Route path="/category/:category" element={<CategoryPage />} />
           <Route path="/new-product" element={<NewProduct />} />
