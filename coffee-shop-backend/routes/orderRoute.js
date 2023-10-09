@@ -36,9 +36,24 @@ router.post("/", async (req, res) => {
   }
 });
 
-//getting an order
+//getting all order
 router.get("/", async (req, res) => {
   try {
+    const orders = await Order.find().populate("owner", ["email", "name"]);
+    res.status(200).json(orders);
+  } catch (e) {
+    res.status(400).json(e.message);
+  }
+});
+
+//Shipping order
+router.patch("/:id/mark-shipped", async (req, res) => {
+  const { ownerId } = req.body;
+  const { id } = req.params;
+
+  try {
+    const user = await User.findById(ownerId);
+    await Order.findByIdAndUpdate(id, { status: "shipped" });
     const orders = await Order.find().populate("owner", ["email", "name"]);
     res.status(200).json(orders);
   } catch (e) {
