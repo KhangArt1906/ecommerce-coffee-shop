@@ -4,6 +4,7 @@ import { Col, Container, Nav, Row, Tab } from "react-bootstrap";
 import "./AdminDashboard.css";
 import DashboardProduct from "../components/DashboardProduct";
 import OrdersAdminPage from "../components/OrdersAdminPage";
+import ClientsAdminPage from "../components/ClientsAdminPage";
 
 function AdminDashboard() {
   return (
@@ -36,6 +37,12 @@ function AdminDashboard() {
             <Tab.Content>
               <Tab.Pane eventKey="orders">
                 <OrdersAdminPage />
+              </Tab.Pane>
+            </Tab.Content>
+
+            <Tab.Content>
+              <Tab.Pane eventKey="clients">
+                <ClientsAdminPage />
               </Tab.Pane>
             </Tab.Content>
           </Col>

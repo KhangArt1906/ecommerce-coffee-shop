@@ -27,3 +27,14 @@
 .fa-shopping-cart {
   font-size: 20px;
 }
+
+.notification-container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-height: 200px;
+  overflow-y: scroll;
+  border: 1px solid gray;
+  background-color: white;
+  width: 200px;
+  z-index: 99;
+}

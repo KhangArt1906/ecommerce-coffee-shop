@@ -10,6 +10,7 @@ function formatDate(date) {
 
 //Product an Order
 router.post("/", async (req, res) => {
+  const io = req.app.get("socketio");
   const { userId, cart, country, address } = req.body;
 
   try {
@@ -28,6 +29,12 @@ router.post("/", async (req, res) => {
       count: 0,
     };
     user.orders.push(order);
+    const notification = {
+      status: "unread",
+      message: `You have a new order from ${user.name}`,
+      time: new Date(),
+    };
+    io.sockets.emit("new-order", notification);
     user.markModified("orders");
     await user.save();
     res.status(200).json(user);
@@ -55,6 +62,16 @@ router.patch("/:id/mark-shipped", async (req, res) => {
     const user = await User.findById(ownerId);
     await Order.findByIdAndUpdate(id, { status: "shipped" });
     const orders = await Order.find().populate("owner", ["email", "name"]);
+    const notification = {
+      status: "unread",
+      message: `Order ${id} shipped with success`,
+      time: new Date(),
+    };
+
+    io.sockets.emit("notification", notification, ownerId);
+    user.notifications.push(notification);
+    await user.save();
+
     res.status(200).json(orders);
   } catch (e) {
     res.status(400).json(e.message);
