@@ -22,7 +22,6 @@ import { addNotification } from "./features/userSlice";
 function App() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
   useEffect(() => {
     const socket = io("ws://localhost:8080");
     socket.off("notification").on("notification", (msgObj, user_id) => {
@@ -33,7 +32,7 @@ function App() {
     });
 
     socket.off("new-order").on("new-order", (msgObj) => {
-      if (user.isAdmin) {
+      if (user.isAdmin == true && user.isAdmin) {
         dispatch(addNotification(msgObj));
       }
     });

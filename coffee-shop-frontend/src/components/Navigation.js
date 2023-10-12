@@ -9,6 +9,7 @@ import axios from "../axios";
 
 function Navigation() {
   const user = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const bellRef = useRef(null);
   const notificationRef = useRef(null);
@@ -19,18 +20,20 @@ function Navigation() {
   }
 
   const unreadNotifications = user?.notifications?.reduce((acc, current) => {
-    if (current.status === "unread") return acc + 1;
+    if (current.status == "unread") return acc + 1;
     return acc;
   }, 0);
+
+  console.log(user.notifications);
 
   function handleToggleNotifications() {
     const position = bellRef.current.getBoundingClientRect();
     setBellPos(position);
     notificationRef.current.style.display =
-      notificationRef.current.display === "block" ? "none" : "block";
+      notificationRef.current.style.display === "block" ? "none" : "block";
     dispatch(resetNotifications());
 
-    if (unreadNotifications > 1)
+    if (unreadNotifications > 0)
       axios.post(`/users/${user._id}/updateNotifications`);
   }
 
@@ -125,13 +128,21 @@ function Navigation() {
           display: "none",
         }}
       >
-        {user?.notifications?.map((notification) => (
-          <p className={`notification-${notification.status}`}>
-            {notification.message}
-            <br />
-            <span>{notification.time}</span>
-          </p>
-        ))}
+        {user?.notifications.length > 0 ? (
+          user?.notifications.map((notification) => (
+            <p className={`notification-${notification.status}`}>
+              {notification.message}
+              <br />
+              <span>
+                {notification.time.split("T")[0] +
+                  " " +
+                  notification.time.split("T")[1]}
+              </span>
+            </p>
+          ))
+        ) : (
+          <p>No notifications yet </p>
+        )}
       </div>
     </Navbar>
   );

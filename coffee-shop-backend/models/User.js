@@ -36,7 +36,7 @@ const UserSchema = mongoose.Schema(
       },
     },
 
-    notification: {
+    notifications: {
       type: Array,
       default: [],
     },

@@ -6,6 +6,7 @@ import { Container, Table, Badge, Button, Modal } from "react-bootstrap";
 
 function OrdersAdminPage() {
   const [orders, setOrders] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const products = useSelector((state) => state.products);
   const [ordersToShow, setOrderToShow] = useState([]);
@@ -45,6 +46,7 @@ function OrdersAdminPage() {
       })
       .catch((e) => {
         setLoading(false);
+        console.log(e.message);
       });
   }, []);
 
@@ -81,7 +83,9 @@ function OrdersAdminPage() {
                 {order.status === "processing" ? (
                   <Button
                     size="sm"
-                    onClick={() => markShipped(order._id, order.owner?._id)}
+                    onClick={() => {
+                      markShipped(order._id, order.owner?._id);
+                    }}
                   >
                     Mark as shipped
                   </Button>
