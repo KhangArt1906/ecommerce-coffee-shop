@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import ProductReview from "../components/ProductPreview";
 import Loading from "../components/Loading";
 import "./CategoryPage.css";
+import Pagination from "../components/Pagination";
 
 function CategoryPage() {
   const { category } = useParams();
@@ -34,6 +35,17 @@ function CategoryPage() {
   const productsSearch = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  function ProductSearch({ _id, category, name, pictures }) {
+    return (
+      <ProductReview
+        _id={_id}
+        category={category}
+        name={name}
+        pictures={pictures}
+      />
+    );
+  }
   return (
     <div className="category-page-container">
       <div
@@ -57,11 +69,13 @@ function CategoryPage() {
         <Container>
           <Row>
             <Col md={{ span: 10, offset: 1 }}>
-              <div className="d-flex justify-content-center align-items-center flex-wrap">
-                {productsSearch.map((product) => (
-                  <ProductReview {...product} />
-                ))}
-              </div>
+              <Pagination
+                data={productsSearch}
+                RenderComponent={ProductSearch}
+                pageLimit={1}
+                dataLimit={5}
+                tablePagination={false}
+              />
             </Col>
           </Row>
         </Container>

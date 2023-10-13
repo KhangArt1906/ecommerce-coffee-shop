@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./DashboardProduct.css";
 import { useDeleteProductMutation } from "../services/appApi";
+import Pagination from "./Pagination";
 
 function DashboardProduct() {
   const products = useSelector((state) => state.products);
@@ -18,6 +19,30 @@ function DashboardProduct() {
       deleteProduct({ product_id: id, user_id: user._id });
   }
 
+  function TableRow({ pictures, _id, name, price }) {
+    return (
+      <tr>
+        <td>
+          <img src={pictures[0].url} className="dashboard-product-preview" />
+        </td>
+        <td>{_id}</td>
+        <td>{name}</td>
+        <td>{price}</td>
+        <td>
+          <Button
+            onClick={() => handleDeleteProduct(_id, user._id)}
+            disabled={isLoading}
+          >
+            Delete
+          </Button>
+          <Link to={`/product/${_id}/edit`} className="btn btn-warning">
+            Edit
+          </Link>
+        </td>
+      </tr>
+    );
+  }
+
   return (
     <Table striped bordered hove responsive>
       <thead>
@@ -30,37 +55,13 @@ function DashboardProduct() {
       </thead>
 
       <tbody>
-        {products.map((product) => (
-          <tr>
-            <td>
-              <img
-                src={product.pictures[0].url}
-                className="dashboard-product-preview"
-              />
-            </td>
-
-            <td>{product._id}</td>
-
-            <td>{product.name}</td>
-
-            <td>{product.price}</td>
-
-            <td>
-              <Button
-                onClick={() => handleDeleteProduct(product._id, user._id)}
-                disabled={isLoading}
-              >
-                Delete
-              </Button>
-              <Link
-                to={`/product/${product._id}/edit`}
-                className="btn btn-warning"
-              >
-                Edit Product
-              </Link>
-            </td>
-          </tr>
-        ))}
+        <Pagination
+          data={products}
+          RenderComponent={TableRow}
+          pageLimit={1}
+          dataLimit={5}
+          tablePagination={true}
+        />
       </tbody>
     </Table>
   );
