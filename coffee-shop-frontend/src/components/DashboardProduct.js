@@ -27,7 +27,7 @@ function DashboardProduct() {
         </td>
         <td>{_id}</td>
         <td>{name}</td>
-        <td>{price}</td>
+        <td>${price}</td>
         <td>
           <Button
             onClick={() => handleDeleteProduct(_id, user._id)}

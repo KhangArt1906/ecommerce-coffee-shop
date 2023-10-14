@@ -65,7 +65,7 @@ function OrdersAdminPage() {
         <td>{_id}</td>
         <td>{owner?.name}</td>
         <td>{count}</td>
-        <td>{total}</td>
+        <td>${total}</td>
         <td>{address}</td>
         <td>
           {status === "processing" ? (

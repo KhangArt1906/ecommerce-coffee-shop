@@ -24,8 +24,6 @@ function Navigation() {
     return acc;
   }, 0);
 
-  console.log(user.notifications);
-
   function handleToggleNotifications() {
     const position = bellRef.current.getBoundingClientRect();
     setBellPos(position);
@@ -116,8 +114,7 @@ function Navigation() {
           </Nav>
         </Navbar.Collapse>
       </Container>
-
-      {/* Notifications */}
+      {/* Notifications*/}
       <div
         className="notifications-container"
         ref={notificationRef}

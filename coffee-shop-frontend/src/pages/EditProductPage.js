@@ -93,7 +93,7 @@ function EditProductPage() {
       <Row>
         <Col md={6} className="new-product__form--container">
           <Form style={{ width: "100%" }} onSubmit={handleSubmit}>
-            <h1>Create a product</h1>
+            <h1>Update a product</h1>
             {isSuccess && (
               <Alert variant="success">Product has been updated</Alert>
             )}
@@ -142,9 +142,17 @@ function EditProductPage() {
                 <option disabled selected>
                   ---- Select One ----
                 </option>
-                <option value="ca phe rang xay">Ca Phe Rang Xay</option>
-                <option value="ca phe phin giay">Ca Phe Phin Giay</option>
-                <option value="ca phe hat">Ca Phe Hat</option>
+                <option value="Coffee roasters">Coffee Roasters</option>
+                <option value="paper filter coffee">Paper Filter Coffee</option>
+                <option value="Instant coffee">Instant Coffee</option>
+                <option value="Coffee beans">Coffee Beans</option>
+                <option value="Filter cup">Filter - Cup</option>
+                <option value="Premium coffee trung nguyen">
+                  Premium Trung Nguyen Coffee
+                </option>
+                <option value="Tea">Tea</option>
+                <option value="Basket gift">Basket Gift Tet Holiday</option>
+                <option value="Danisa cake">Danisa Cake</option>
               </FormSelect>
             </Form.Group>
 

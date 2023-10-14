@@ -127,9 +127,19 @@ function NewProduct() {
                 <option disabled selected>
                   ---- Select One ----
                 </option>
-                <option value="ca phe rang xay">Ca Phe Rang Xay</option>
-                <option value="ca phe phin giay">Ca Phe Phin Giay</option>
-                <option value="ca phe hat">Ca Phe Hat</option>
+                <option value="coffee roasters">Coffee Roasters</option>
+                <option value="paper filter coffee">Paper Filter Coffee</option>
+                <option value="instant coffee">Instant Coffee</option>
+                <option value="coffee beans">Coffee Beans</option>
+                <option value="filter cup">Filter - Cup</option>
+                <option value="premium coffee trung nguyen">
+                  Premium Trung Nguyen Coffee
+                </option>
+                <option value="tea">Tea</option>
+                <option value="basket gift tet holiday">
+                  Basket Gift Tet Holiday
+                </option>
+                <option value="danisa cake">Danisa Cake</option>
               </FormSelect>
             </Form.Group>
 

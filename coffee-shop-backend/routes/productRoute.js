@@ -85,10 +85,11 @@ router.get("/category/:category", async (req, res) => {
   const { category } = req.params;
   try {
     let products;
+    const sort = { _id: -1 };
     if (category == "all") {
-      products = await Product.find().sort([["date", -1]]);
+      products = await Product.find().sort(sort);
     } else {
-      products = await Product.find({ category });
+      products = await Product.find({ category }).sort(sort);
     }
     res.status(200).json(products);
   } catch (e) {
@@ -103,14 +104,14 @@ router.post("/add-to-cart", async (req, res) => {
   try {
     const user = await User.findById(userId);
     const userCart = user.cart;
-
     if (user.cart[productId]) {
       userCart[productId] += 1;
     } else {
       userCart[productId] = 1;
     }
     userCart.count += 1;
-    userCart.total = Number(userCart.total) + Number(price);
+    userCart.total = Math.floor(Number(userCart.total) + Number(price));
+    user.cart = userCart;
     user.markModified("cart");
     await user.save();
     res.status(200).json(user);
