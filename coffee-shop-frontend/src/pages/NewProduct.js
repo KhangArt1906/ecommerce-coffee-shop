@@ -45,7 +45,7 @@ function NewProduct() {
       return window.alert("Please fill into the input field");
     }
     createProduct({ name, description, price, category, images }).then(
-      (data) => {
+      ({ data }) => {
         if (data.length > 0) {
           setTimeout(() => {
             navigate("/");

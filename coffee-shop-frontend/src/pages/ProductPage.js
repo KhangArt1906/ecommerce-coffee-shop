@@ -1,17 +1,19 @@
+import axios from "../axios";
 import React, { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 import {
-  Badge,
-  Button,
-  ButtonGroup,
-  Col,
   Container,
-  FormSelect,
   Row,
+  Col,
+  Badge,
+  ButtonGroup,
+  Form,
+  Button,
+  FormSelect,
 } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import axios from "../axios";
 import Loading from "../components/Loading";
 import SimilarProduct from "../components/SimilarProduct";
 import "./ProductPage.css";
@@ -24,7 +26,7 @@ function ProductPage() {
   const user = useSelector((state) => state.user);
   const [product, setProduct] = useState(null);
   const [similar, setSimilar] = useState(null);
-  const [addtoCart, { isSuccess }] = useAddToCartMutation();
+  const [addToCart, { isSuccess }] = useAddToCartMutation();
 
   const handleDragStart = (event) => {
     event.preventDefault();
@@ -97,7 +99,7 @@ function ProductPage() {
               <Button
                 size="lg"
                 onClick={() =>
-                  addtoCart({
+                  addToCart({
                     userId: user._id,
                     productId: id,
                     price: product.price,
@@ -112,7 +114,7 @@ function ProductPage() {
 
           {user && user.isAdmin && (
             <LinkContainer to={`/product/${product._id}/edit`}>
-              <Button>Edit Product</Button>
+              <Button size="lg">Edit Product</Button>
             </LinkContainer>
           )}
           {isSuccess && (

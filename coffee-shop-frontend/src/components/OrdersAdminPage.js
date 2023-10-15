@@ -98,6 +98,8 @@ function OrdersAdminPage() {
             <th>Items</th>
             <th>Orders Total</th>
             <th>Address</th>
+            <th>Status</th>
+            <th>View</th>
           </tr>
         </thead>
 
@@ -120,11 +122,11 @@ function OrdersAdminPage() {
           <div className="order-details__container d-flex justify-content-around py-2">
             <img
               src={order.pictures[0].url}
-              style={{ maxWidth: 100, maxHeight: 100, objectFit: "cover" }}
+              style={{ maxWidth: 70, maxHeight: 70, objectFit: "cover" }}
             />
 
             <p>
-              <span>{order.count} x</span>
+              <span>{order.count} x </span>
               {order.name}
             </p>
             <p>Price: ${Number(order.price) * order.count}</p>

@@ -30,12 +30,17 @@ function DashboardProduct() {
         <td>${price}</td>
         <td>
           <Button
+            size="xl"
             onClick={() => handleDeleteProduct(_id, user._id)}
             disabled={isLoading}
           >
             Delete
           </Button>
-          <Link to={`/product/${_id}/edit`} className="btn btn-warning">
+          <Link
+            style={{ marginTop: "10px" }}
+            to={`/product/${_id}/edit`}
+            className="btn btn-xm btn-warning"
+          >
             Edit
           </Link>
         </td>
@@ -51,6 +56,7 @@ function DashboardProduct() {
           <th>Product ID</th>
           <th>Product Name</th>
           <th>Product Price</th>
+          <th>Functions</th>
         </tr>
       </thead>
 
