@@ -13,6 +13,8 @@ function OrdersAdminPage() {
   const [ordersToShow, setOrderToShow] = useState([]);
   const [show, setShow] = useState(false);
 
+  //console.log(orders);
+
   //Function handleClose to close the modal
   const handleClose = () => setShow(false);
 

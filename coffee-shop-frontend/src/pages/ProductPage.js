@@ -88,14 +88,7 @@ function ProductPage() {
           </p>
 
           {user && !user.isAdmin && (
-            <ButtonGroup style={{ width: "90%" }}>
-              <FormSelect size="lg" style={{ width: "40%", borderRadius: "0" }}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </FormSelect>
+            <ButtonGroup style={{ width: "26%", height: "10%" }}>
               <Button
                 size="lg"
                 onClick={() =>
